@@ -1,58 +1,80 @@
-# Student Performance Predictor
+# Student Performance Prediction Model
 
-A beginner-friendly full-stack ML project using scikit-learn, joblib, FastAPI, and HTML/CSS/JavaScript. The website follows the supplied visual reference, with light/dark themes, tabs, grouped slider inputs, and styled prediction panels.
+## Project Overview
 
-## Models and measured performance
+This project is a full-stack machine learning application that predicts student performance using regression and classification models. It provides a web interface for entering student data and viewing predictions.
 
-Both models use an 80/20 train-test split (`random_state=42`).
+## Technologies Used
 
-- **Regression:** Linear Regression predicts the numeric `FinalGrade` code. R² = **0.9402** (94.02%); MAE = **0.2358**.
-- **Classification:** Random Forest predicts the category mapped from `FinalGrade`. Accuracy = **1.0000** (100.0%).
-- Grade mapping used for this demo: `0 = High`, `1 = Good`, `2 = Average`, `3 = Low`. Confirm this mapping with your instructor because the CSV contains numeric codes but no separate official label guide.
+* Python
+* Pandas
+* Scikit-learn
+* FastAPI
+* HTML, CSS, and JavaScript
+* Joblib
 
-These are held-out test results for the supplied dataset, not a guarantee of performance on new data. The high classification score is likely influenced by `ExamScore` being included as an input feature.
+## Machine Learning Models
 
-## Files
+* **Regression:** Predicts a numerical student performance value.
+* **Classification:** Predicts a student performance category.
 
-- `student_performance.csv` — dataset
-- `train_models.py` — trains both models, prints metrics, and saves model files
-- `regression_model.joblib` and `classification_model.joblib` — trained models
-- `main.py` — FastAPI app and prediction endpoints
-- `static/index.html` — frontend based on the supplied design reference
-- `metrics.json` — saved evaluation metrics
-- `requirements.txt` — Python dependencies
+The trained models are saved using Joblib and loaded by the backend.
 
-## Run on Windows
+## Project Structure
 
-Open a terminal in this folder and run:
-
-```powershell
-python -m venv .venv
-.venv\\Scripts\\activate
-pip install -r requirements.txt
-uvicorn main:app --reload
+```text
+student_performance_ml_app/
+├── main.py
+├── train_models.py
+├── student_performance.csv
+├── regression_model.joblib
+├── classification_model.joblib
+├── metrics.json
+├── requirements.txt
+├── README.md
+└── static/
+    └── index.html
 ```
 
-Then visit `http://127.0.0.1:8000`. API docs are at `http://127.0.0.1:8000/docs`.
+## How to Run
 
-To retrain the models, run `python train_models.py` from the project folder.
+1. Install Python.
 
-## Required endpoints
+2. Open PowerShell in the project folder.
 
-- `POST /predict/regression`
-- `POST /predict/classification`
+3. Create a virtual environment:
 
-The website also uses `GET /dataset/info` to build the slider controls and show metrics, and `GET /dataset/sample` to load a sample student.
+   ```powershell
+   python -m venv .venv
+   ```
 
-## GitHub submission
+4. Activate it:
 
-Create a new GitHub repository and upload these project files. Do not upload `.venv`. Example commands:
+   ```powershell
+   .\.venv\Scripts\Activate.ps1
+   ```
 
-```bash
-git init
-git add .
-git commit -m "Update student performance ML app"
-git branch -M main
-git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
-git push -u origin main
-```
+5. Install dependencies:
+
+   ```powershell
+   pip install -r requirements.txt
+   ```
+
+6. Start the FastAPI application using the command appropriate for the project:
+
+   ```powershell
+   python -m uvicorn main:app --reload
+   ```
+
+7. Open `http://127.0.0.1:8000` in your browser.
+
+8. To test the API, open `http://127.0.0.1:8000/docs`.
+
+## Model Evaluation
+
+Evaluation results are recorded in `metrics.json`. Refer to that file for the actual regression and classification metrics.
+
+## Notes
+
+* Keep the saved model files and `metrics.json` in the locations expected by `main.py`.
+* The training script can be used to retrain the models when the dataset is available.
